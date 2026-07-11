@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void merge(int arr[] , int l , int m , int r){
+    
+    int i = l;
+    int j = m+1;
+    
+    int len = r-l+1;
+    int temp[len] = {};
+    int k = 0;
+    while(i<=m && j<=r){
+        if(arr[i]>=arr[j]){
+            temp[k] = arr[j];
+            j++;
+            k++;
+        }else{
+            temp[k] = arr[i];
+            i++;
+            k++;
+        }
+    }
+    
+    while(i<=m){
+        temp[k] = arr[i];
+            i++;
+            k++;
+    }
+    
+    while(j<=r){
+        temp[k] = arr[j];
+            j++;
+            k++;
+    }
+    
+    for(int id = 0; id<len;id++){
+        arr[l+id] = temp[id];
+    }
+}
+
+
+void mergesort(int arr[] , int start , int end){
+    
+    int mid = start+(end - start)/2;
+    
+    if(start<end){
+        
+        mergesort(arr, start, mid);
+        mergesort(arr,mid+1,end);
+        merge(arr,start,mid,end);    
+    }
+    
+}
+
+void print(int arr[] , int len){
+    
+    for(int i=0; i<len; i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+}
+
+int main(){
+    
+    int arr[] = {5,4,6,1,2};
+    mergesort(arr,0,5);
+    print(arr,5);
+    return 0;
+}
