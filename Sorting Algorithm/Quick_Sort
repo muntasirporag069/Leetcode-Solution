@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int pivot(int arr[], int st, int end){
+    int idx = st-1;
+    int pt = arr[end];
+    
+    for(int i = st; i<end;i++){
+        if(arr[i]<=pt){
+            idx++;
+            swap(arr[i], arr[idx]);
+        }
+    }
+    idx++;
+    swap(arr[end] , arr[idx]);
+    return idx;
+}
+
+void quicksort(int arr[],int st,int end){
+    if(st<end){
+        int idx = pivot(arr,st,end);
+        quicksort(arr,st,idx-1);
+        quicksort(arr,idx+1,end);
+    }
+}
+
+void print(int arr[],int len){
+    for(int i=0; i<len;i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+}
+
+int main(){
+    
+    int arr[] = {5,2,6,4,1,3};
+    quicksort(arr,0,5);
+    print(arr,5);
+    return 0;
+}
