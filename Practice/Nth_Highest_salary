@@ -1,0 +1,14 @@
+/*Muntasir Hasan Porag*/
+
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      select DISTINCT salary
+      from(
+        select salary,
+        Dense_Rank() over(Order By salary desc) as rk
+        from Employee
+      ) as Ranked
+      where rk = N
+  );
+END
